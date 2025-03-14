@@ -14,3 +14,14 @@
       src: templates/prometheus.yml.j2
       dest: /etc/prometheus/prometheus.yml
     notify: restart prometheus
+
+  - name: Install Grafana
+    apt:
+      name: grafana-server
+      state: present
+
+  - name: Configure Grafana
+    template:
+      src: templates/grafana.ini.j2
+      dest: /etc/grafana/grafana.ini
+    notify: restart grafana
