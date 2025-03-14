@@ -27,3 +27,17 @@ resource "aws_security_group" "example_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+# Create Load Balancer
+resource "aws_elb" "example_elb" {
+  name            = "example-elb"
+  subnets         = [aws_subnet.example_subnet.id]
+  security_groups = [aws_security_group.example_sg.id]
+
+  listener {
+    instance_port      = 80
+    instance_protocol  = "http"
+    lb_port            = 80
+    lb_protocol        = "http"
+  }
+}
